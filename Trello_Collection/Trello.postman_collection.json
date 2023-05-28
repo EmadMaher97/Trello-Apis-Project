@@ -1,0 +1,2186 @@
+{
+	"info": {
+		"_postman_id": "686d63df-fb58-452e-9d03-83a0da7ed965",
+		"name": "Trello",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25769536"
+	},
+	"item": [
+		{
+			"name": "creating  FUll Workspace",
+			"item": [
+				{
+					"name": "Create Board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(jsonData.name).to.eql(\"bootcambe\");\r",
+									"        pm.expect(jsonData.closed).to.eql(false);\r",
+									"        pm.expect(jsonData.descData).to.eql(null);\r",
+									"\r",
+									"});\r",
+									" var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"MyBoardId\",jsonData.id  );\r",
+									"pm.environment.set(\"WorkspaceId\",jsonData.idOrganization  );\r",
+									"pm.environment.set(\"pinned\",jsonData.pinned  );"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}?key={{key}}&name=bootcambe&token={{token}}&defaultLists=false&defaultLabels=false&desc=this board was created be emad",
+							"host": [
+								"{{baseurl}}{{1boards}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "name",
+									"value": "bootcambe"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "defaultLists",
+									"value": "false"
+								},
+								{
+									"key": "defaultLabels",
+									"value": "false"
+								},
+								{
+									"key": "desc",
+									"value": "this board was created be emad"
+								},
+								{
+									"key": "idOrganization",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "idBoardSource",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "keepFromSource",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create EmailKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"EmialKeyId\",jsonData.id  );"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/boards/{{MyBoardId}}/emailKey/generate?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{MyBoardId}}",
+								"emailKey",
+								"generate"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									" var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"idListSource \",jsonData.id  );"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1lists}}?name=myFirstList4&key={{key}}&token={{token}}&idBoard={{MyBoardId}}",
+							"host": [
+								"{{baseurl}}{{1lists}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "myFirstList4"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{MyBoardId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creat card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									" var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"idCard \",jsonData.id  );\r",
+									"pm.environment.set(\"closed \",jsonData.closed  );"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/cards?name=myCaard24&idList={{idListSource }}&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "myCaard24"
+								},
+								{
+									"key": "idList",
+									"value": "{{idListSource }}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Checklist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									" var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"idChecklist \",jsonData.id  );\r",
+									"pm.environment.set(\"checklist name \",jsonData.name  );"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/checklists?idCard={{idCard }}&key={{key}}&token={{token}}&name=validlogin",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"checklists"
+							],
+							"query": [
+								{
+									"key": "idCard",
+									"value": "{{idCard }}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "validlogin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Checkitem on Checklist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"checkItems \",jsonData.id  );"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1Checlist}}{{idChecklist }}/checkItems?name=CheckItem&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1Checlist}}{{idChecklist }}"
+							],
+							"path": [
+								"checkItems"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "CheckItem"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"MyLabelId\",jsonData.id  );\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/labels?name=Developer&color=blue&idBoard={{MyBoardId}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"labels"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Developer"
+								},
+								{
+									"key": "color",
+									"value": "blue"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{MyBoardId}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Label on a Board",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/labels?name=Testing&color=red&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"labels"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Testing"
+								},
+								{
+									"key": "color",
+									"value": "red"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a List on a Board",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/lists?name=MysecondList&pos=top&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "MysecondList"
+								},
+								{
+									"key": "pos",
+									"value": "top"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Board",
+			"item": [
+				{
+					"name": "Get Board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"        pm.expect(jsonData.closed).to.eql(false);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/boards/{{MyBoardId}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{MyBoardId}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get membership",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/boards/{{MyBoardId}}/memberships?key={{key}}&token={{token}}&filter=all",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{MyBoardId}}",
+								"memberships"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "filter",
+									"value": "all"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a field on a Board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/boards/{{MyBoardId}}/idOrganization?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{MyBoardId}}",
+								"idOrganization"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Actions of a Board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}?actions=commentCard%26actions_limit=1000%26&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"query": [
+								{
+									"key": "actions",
+									"value": "commentCard&actions_limit=1000&"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Card on a Board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/cards/{{idCard }}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"cards",
+								"{{idCard }}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get boardStars on a Board",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}?key={{key}}&token={{token}}&filter=none",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"query": [
+								{
+									"key": "boardStars",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "filter",
+									"value": "none"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Checklists on a Board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/checklists/?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"checklists",
+								""
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cards on a Board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/cards/?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"cards",
+								""
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get filtered Cards on a Board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/cards/{{filter}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"cards",
+								"{{filter}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Custom Fields for Board",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "customFields",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/customFields?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"customFields"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Labels on a Board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/labels?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"labels"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lists on a Board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/lists?cards=all&card_fields=all&filter=all&fields=all&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"lists"
+							],
+							"query": [
+								{
+									"key": "cards",
+									"value": "all"
+								},
+								{
+									"key": "card_fields",
+									"value": "all"
+								},
+								{
+									"key": "filter",
+									"value": "all"
+								},
+								{
+									"key": "fields",
+									"value": "all"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get filtered Lists on a Board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/lists/{{filter}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"lists",
+								"{{filter}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the Members of a Board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/members?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"members"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating exist Board",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/boards/{{MyBoardId}}/?name=MyUpdatingBoard&key={{key}}&token={{token}}&desc=the second board&closed=false",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{MyBoardId}}",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "MyUpdatingBoard"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "desc",
+									"value": "the second board"
+								},
+								{
+									"key": "closed",
+									"value": "false"
+								},
+								{
+									"key": "subscribed",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "idOrganization",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "permissionLevel",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "cardCovers",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite Member to Board via email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"membersID1\",jsonData.members[0].id  );\r",
+									"pm.environment.set(\"membersID2\",jsonData.members[1].id  );"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1boards}}{{MyBoardId}}/members?email=mohamedkhalaf20172020@gmail.com&type=normal&fullName=Mohammed Khalif&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1boards}}{{MyBoardId}}"
+							],
+							"path": [
+								"members"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "mohamedkhalaf20172020@gmail.com"
+								},
+								{
+									"key": "type",
+									"value": "normal"
+								},
+								{
+									"key": "fullName",
+									"value": "Mohammed Khalif"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lists",
+			"item": [
+				{
+					"name": "Get list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(\"myFirstList\");\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/lists/{{idListSource }}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{idListSource }}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cards in a List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1lists}}{{idListSource }}/cards?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1lists}}{{idListSource }}"
+							],
+							"path": [
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a List",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1lists}}{{idListSource }}?name=MyUpdatingList&closed=false&idBoard={{MyBoardId}}&pos=bottom&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1lists}}{{idListSource }}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "MyUpdatingList"
+								},
+								{
+									"key": "closed",
+									"value": "false"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{MyBoardId}}"
+								},
+								{
+									"key": "pos",
+									"value": "bottom"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive or unarchive a list",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1lists}}{{idListSource }}/?closed=true&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1lists}}{{idListSource }}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "closed",
+									"value": "true"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Move List to Board",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1lists}}{{idListSource }}?value&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1lists}}{{idListSource }}"
+							],
+							"query": [
+								{
+									"key": "value",
+									"value": null
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a field on a List",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1lists}}{{idListSource }}?name=myFirstList&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1lists}}{{idListSource }}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "myFirstList"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cards",
+			"item": [
+				{
+					"name": "Get Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/cards/{{idCard }}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{idCard }}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the Board the Card is on",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1cards}}{{idCard }}/board?fields=all&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1cards}}{{idCard }}"
+							],
+							"path": [
+								"board"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "all"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Checklists on a Card",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1cards}}{{idCard }}/checklists?checkItems=all&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1cards}}{{idCard }}"
+							],
+							"path": [
+								"checklists"
+							],
+							"query": [
+								{
+									"key": "checkItems",
+									"value": "all"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the Members of a Card",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1cards}}{{idCard }}/members?fields=all&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1cards}}{{idCard }}"
+							],
+							"path": [
+								"members"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "all"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Card",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1cards}}{{idCard }}?name=myupdatingCard&desc=my updating card&closed=false&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1cards}}{{idCard }}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "myupdatingCard"
+								},
+								{
+									"key": "desc",
+									"value": "my updating card"
+								},
+								{
+									"key": "closed",
+									"value": "false"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CheckLists",
+			"item": [
+				{
+					"name": "Get Checklist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/checklists/{{idChecklist }}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"checklists",
+								"{{idChecklist }}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get field on a Checklist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1Checlist}}{{idChecklist }}?field={{checklist name }}&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1Checlist}}{{idChecklist }}"
+							],
+							"query": [
+								{
+									"key": "field",
+									"value": "{{checklist name }}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the Board the Checklist is on",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1Checlist}}{{idChecklist }}/board?fields=all&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1Checlist}}{{idChecklist }}"
+							],
+							"path": [
+								"board"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "all"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Checkitems on a Checklist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1Checlist}}{{idChecklist }}/checkItems?filter=all&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1Checlist}}{{idChecklist }}"
+							],
+							"path": [
+								"checkItems"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "all"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Checklist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}{{1Checlist}}{{idChecklist }}?name=validRegistration&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1Checlist}}{{idChecklist }}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "validRegistration"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "Get a Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1token}}{{token}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1token}}{{token}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Token's Member",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1token}}{{token}}/member?fields=all&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1token}}{{token}}"
+							],
+							"path": [
+								"member"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "all"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Webhooks for Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1token}}{{token}}/webhooks?fields=all&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1token}}{{token}}"
+							],
+							"path": [
+								"webhooks"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "all"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Members",
+			"item": [
+				{
+					"name": "Get a Member",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/members/{{membersID2}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"members",
+								"{{membersID2}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Member",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/members/{{membersID2}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"members",
+								"{{membersID2}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "fullName",
+									"value": "hmes",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Labels",
+			"item": [
+				{
+					"name": "GET /1/labels/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}} /1/labels/{{MyLabelId}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}} "
+							],
+							"path": [
+								"1",
+								"labels",
+								"{{MyLabelId}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "fields",
+									"value": "all",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Organization/Workspace",
+			"item": [
+				{
+					"name": "Create a new Organization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"organizationID\",jsonData.id  );\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/organizations/?displayName=testing trello&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"organizations",
+								""
+							],
+							"query": [
+								{
+									"key": "displayName",
+									"value": "testing trello"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get an Organization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/organizations/{{organizationID}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"organizations",
+								"{{organizationID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Boards in an Organization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/organizations/{{organizationID}}/boards?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"organizations",
+								"{{organizationID}}",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an Organization",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/organizations/{{organizationID}}?key={{key}}&token={{token}}&name=testinguser393&displayName=testing_trello",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"organizations",
+								"{{organizationID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "testinguser393"
+								},
+								{
+									"key": "displayName",
+									"value": "testing_trello"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deleting full board",
+			"item": [
+				{
+					"name": "Delete Checkitem from Checklist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1Checlist}}{{idChecklist }}/checkItems/{{checkItems }}/?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1Checlist}}{{idChecklist }}"
+							],
+							"path": [
+								"checkItems",
+								"{{checkItems }}",
+								""
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Checklist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1Checlist}}{{idChecklist }}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1Checlist}}{{idChecklist }}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive all Cards in List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1lists}}{{idListSource }}/archiveAllCards?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1lists}}{{idListSource }}"
+							],
+							"path": [
+								"archiveAllCards"
+							],
+							"query": [
+								{
+									"key": "idBoard",
+									"value": "{{MyBoardId}}",
+									"disabled": true
+								},
+								{
+									"key": "idList",
+									"value": "{{idListSource }}",
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Move all Cards in List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1lists}}{{idListSource }}/moveAllCards?idBoard={{MyBoardId}}&idList=64728b9ee3981f61bea0e5d1&key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1lists}}{{idListSource }}"
+							],
+							"path": [
+								"moveAllCards"
+							],
+							"query": [
+								{
+									"key": "idBoard",
+									"value": "{{MyBoardId}}"
+								},
+								{
+									"key": "idList",
+									"value": "64728b9ee3981f61bea0e5d1"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Card",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1cards}}{{idCard }}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1cards}}{{idCard }}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Token",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}{{1token}}{{token}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}{{1token}}{{token}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Board",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/boards/{{MyBoardId}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{MyBoardId}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Organization",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/1/organizations/{{organizationID}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"1",
+								"organizations",
+								"{{organizationID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"pm.test(\"Response time is less than 2000ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+					"});"
+				]
+			}
+		}
+	]
+}
